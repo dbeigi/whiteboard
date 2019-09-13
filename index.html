@@ -3,10 +3,54 @@
     <head>
         <meta charset="utf-8">
         <title>My Web Page</title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    	<link rel="stylesheet" href="css/styles.css">
+
     </head>
 
     <body>
         <!-- This is a comment -->
-        <h1>Hello World!</h1>
+        <h1 class="text-center">Whiteboard</h1>
+        <div id="notepad" contenteditable></div>
+        <div id="footer"><div>
+        <script>
+        	window.addEventListener('DOMContentLoaded', (event) => {
+    			console.log('DOM fully loaded and parsed');
+    				// Read UTF8 text file
+					fs.readFile('/note', 'utf8', function (err, data) {
+  					if(err) {
+                        document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
+                    }
+                    if(data) {
+                        document.querySelector('#notepad').innerHTML = data;
+                    }
+				});			
+			});
+
+			window.setInterval(autoSave, 1000);
+			function autoSave(){
+ 					var string = document.querySelector('#notepad').innerHTML;
+                	fs.writeFile("/note", newNString, function (err) {
+                    	if (err){
+                    		document.querySelector('#footer').innerHTML = 'Error Auto Saving';	
+                    	} else {
+                    		document.querySelector('#footer').innerHTML = 'Auto Saved';
+                    	}
+                    	
+                	});
+				}
+        </script>
+        <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
+        <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="javafile.js"> </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
     </body>
 </html>
