@@ -17,98 +17,98 @@
     <div class="row">
       <div class="col-md-12">
         <h1 class="text-center text-uppercase mb-4 text-black">Whiteboard</h1>
-      </div> 
+      </div>
     </div>
     <div class="row flex-spaces child-borders child-shadows-hover" style="height: 600px;">
-        <div class="col-md-12">
-            <div class="note" id="notepad" style="margin-top: 20px;" contenteditable></div>
-            <div class="text-uppercase mb-4" id="footer">
-            </div>
-          </div>
+      <div class="col-md-12">
+        <div class="note" id="notepad" style="margin-top: 20px;" contenteditable></div>
+        <div class="text-uppercase mb-4" id="footer">
+        </div>
+      </div>
     </div>
     <div class="row text-center text-uppercase">
-        <div class="col-md-12">
-            <p>Ctrl+Q to Save whiteboard</p>
-            <p>Ctrl+B to clear whiteboard</p>
+      <div class="col-md-12">
+        <p>Ctrl+Q to Save whiteboard</p>
+        <p>Ctrl+B to clear whiteboard</p>
+      </div>
     </div>
-</div>
     <!-- <button class="btn-large" onclick="bold()">Bold</button> -->
 
-      <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
-      <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-      <script>
+    <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+    <script>
 
-        const fs = new Filer.FileSystem();
-        window.addEventListener('DOMContentLoaded', (event) => {
-          console.log('DOM fully loaded and parsed');
-          // Read UTF8 text file
-          var footer = document.getElementById("footer").in;
-          fs.readFile('/note', 'utf8', function (err, data) {
-            if (err) {
-              document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
-            }
-            if (data) {
-              document.querySelector('#notepad').innerHTML = data;
-            }
-          });
-        });
-        function timeout(){
-          document.querySelector('#footer').innerHTML = '';
-        }
-        //window.setInterval(Save, 5000);
-        function Save() {
-          var string = document.querySelector('#notepad').innerHTML;
-          fs.writeFile("/note", string, function (err) {
-            if (err) {
-              document.querySelector('#footer').innerHTML = 'Error Saving';
-            } else {
-              document.querySelector('#footer').innerHTML = 'Saved';
-              setInterval(timeout,4000);
-            }
-          });
-        }
-        function Clean() {
-          var string = document.querySelector('#notepad').innerHTML;
-          fs.writeFile("/note", string, function (err) {
-            if (err) {
-              document.querySelector('#footer').innerHTML = 'Error Saving';
-            } else {
-              document.querySelector('#footer').innerHTML = 'Cleared';
-              setInterval(timeout,4000);
-            }
-          });
-        }
-        hotkeys.filter = function (event) {
-          var tagName = (event.target || event.srcElement).tagName;
-          return !(tagName.isContentEditable || tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA');
-        }
-        hotkeys('ctrl+q,ctrl+b', function (event, handler) {
-          switch (handler.key) {
-            case 'ctrl+q': alert('SAVED');
-              Save();
-              break;
-            case 'ctrl+b': alert('WHITEBOARD CLEARED');
-              document.querySelector('#notepad').innerHTML = '';
-              document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
-              Clean();
-              break;
-            default: alert(event);
+      const fs = new Filer.FileSystem();
+      window.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+        // Read UTF8 text file
+        var footer = document.getElementById("footer").in;
+        fs.readFile('/note', 'utf8', function (err, data) {
+          if (err) {
+            document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
+          }
+          if (data) {
+            document.querySelector('#notepad').innerHTML = data;
           }
         });
+      });
+      function timeout() {
+        document.querySelector('#footer').innerHTML = '';
+      }
+      //window.setInterval(Save, 5000);
+      function Save() {
+        var string = document.querySelector('#notepad').innerHTML;
+        fs.writeFile("/note", string, function (err) {
+          if (err) {
+            document.querySelector('#footer').innerHTML = 'Error Saving';
+          } else {
+            document.querySelector('#footer').innerHTML = 'Saved';
+            setInterval(timeout, 40000);
+          }
+        });
+      }
+      function Clean() {
+        var string = document.querySelector('#notepad').innerHTML;
+        fs.writeFile("/note", string, function (err) {
+          if (err) {
+            document.querySelector('#footer').innerHTML = 'Error Saving';
+          } else {
+            document.querySelector('#footer').innerHTML = 'Cleared';
+            setInterval(timeout, 4000);
+          }
+        });
+      }
+      hotkeys.filter = function (event) {
+        var tagName = (event.target || event.srcElement).tagName;
+        return !(tagName.isContentEditable || tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA');
+      }
+      hotkeys('ctrl+q,ctrl+b', function (event, handler) {
+        switch (handler.key) {
+          case 'ctrl+q': alert('SAVED');
+            Save();
+            break;
+          case 'ctrl+b': alert('WHITEBOARD CLEARED');
+            document.querySelector('#notepad').innerHTML = '';
+            document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
+            Clean();
+            break;
+          default: alert(event);
+        }
+      });
 
-      </script>
+    </script>
 
-      <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>
