@@ -44,14 +44,12 @@
         // Read UTF8 text file
         var footer = document.getElementById("footer").in;
         fs.readFile('/note', 'utf8', function (err, data) {
-          const elem=document.querySelector("#footer");
           if (err) {
             document.querySelector('#notepad').innerHTML = 'Lets Take Notes!';
           }
           if (data) {
             document.querySelector('#notepad').innerHTML = data;
           }
-          elem.focus();
         });
       });
       function timeout() {
